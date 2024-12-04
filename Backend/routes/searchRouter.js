@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const connection = require("../config/db");
+const db = require("../config/db");
 
 //Search for a certain film
 
@@ -16,7 +16,7 @@ router.get("/", (req, res) => {
     OR genre LIKE '%${searchTerm}%'
      `;
 
-  connection.query(query, (error, results) => {
+  db.query(query, (error, results) => {
     if (error) return res.status(400).json(error);
     res.json(results);
   });

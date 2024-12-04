@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const connection = require("../config/db");
+const db = require("../config/db");
 const { registerValidation, loginValidation } = require("../validation");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -22,7 +22,7 @@ router.post("/register", async (req, res) => {
 
   if (error) return res.status(400).send(error.message);
 
-  connection.query(
+  db.query(
     "SELECT * FROM users WHERE email = ?",
     [email],
     async (err, results) => {
@@ -37,7 +37,7 @@ router.post("/register", async (req, res) => {
       const sql =
         "INSERT INTO users (name,email,password,role) VALUES (?,?,?,'user') ";
       const values = [name, email, hashedPassword];
-      connection.query(sql, values, async (err, results) => {
+      db.query(sql, values, async (err, results) => {
         if (err) throw err;
         res.json("User registered successfully");
       });
@@ -52,7 +52,7 @@ router.post("/login", async (req, res) => {
   const { error } = loginValidation(req.body);
   if (error) return res.status(400).send(error.message);
 
-  connection.query(
+  db.query(
     "SELECT * FROM users WHERE email = ?",
     [email],
     async (err, results) => {
@@ -62,7 +62,7 @@ router.post("/login", async (req, res) => {
       if (!validPass) return res.status(400).json("Invalid Password");
 
       // Create and assign token
-      const { password: Password, ...other } = results[0]; // To avoid sending the password 
+      const { password: Password, ...other } = results[0]; // To avoid sending the password
       const token = jwt.sign(
         { id: results[0].id, role: results[0].role },
         process.env.TOKEN_SECRET,
@@ -78,7 +78,7 @@ router.post("/login", async (req, res) => {
         })
         .json({ ...other, token });
     }
-  );  
+  );
 });
 
 //LOGOUT
@@ -95,7 +95,7 @@ router.delete("/logout", (req, res) => {
 //GET ALL USERS
 
 router.get("/", verifyTokenAndAdmin, (req, res) => {
-  connection.query("SELECT * FROM users", (err, results) => {
+  db.query("SELECT * FROM users", (err, results) => {
     if (err) return res.status(400).json(err);
     res.json(results);
   });
@@ -111,7 +111,7 @@ router.post("/:id/favourites", verifyToken, (req, res) => {
     INSERT INTO favourites (user_id, movie_id)
     VALUES (?, ?);
   `;
-  connection.query(sql, [user_id, movie_id], (err, results) => {
+  db.query(sql, [user_id, movie_id], (err, results) => {
     if (err) {
       // Check if the error is due to duplicate entry
       if (err.code === "ER_DUP_ENTRY") {
@@ -135,7 +135,7 @@ router.get("/:id/favourites", verifyTokenAndAuthorization, (req, res) => {
               WHERE f.user_id = ?;
   
             `;
-  connection.query(sql, [req.params.id], (err, results) => {
+  db.query(sql, [req.params.id], (err, results) => {
     if (err) res.status(404).json(err);
     res.json(results);
   });
@@ -155,7 +155,7 @@ router.delete(
                WHERE user_id=? AND movie_id=?
   
             `;
-    connection.query(sql, [user_id, movie_id], (err, results) => {
+    db.query(sql, [user_id, movie_id], (err, results) => {
       if (err) res.status(404).json(err);
       res.json("Movie removed from Favourites");
     });
