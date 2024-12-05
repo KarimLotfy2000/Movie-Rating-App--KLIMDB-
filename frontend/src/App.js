@@ -29,7 +29,6 @@ function App() {
 function AppContent({ currentUser }) {
   const location = useLocation();
 
-  // Hide Header on specific routes
   const hideHeaderRoutes = ["/login", "/register"];
   const shouldRenderHeader = !hideHeaderRoutes.includes(location.pathname);
 

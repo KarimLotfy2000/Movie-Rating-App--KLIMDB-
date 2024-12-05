@@ -42,12 +42,22 @@ body {
   border: 2px solid #fff;
   padding: 10px;
   margin: 0;
-  margin-left: 50px;
 }
 
 .buttons {
   display: flex;
   gap: 10px;
+}
+@media screen and (max-width: 1024px) {
+  .header {
+    flex-direction: column;
+    align-items: center;
+    margin-left: 0;
+  }
+
+  .buttons {
+    margin-top: 20px;
+  }
 }
 
 .login-button,

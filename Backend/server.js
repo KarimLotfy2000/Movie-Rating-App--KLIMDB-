@@ -3,6 +3,7 @@ const cors = require("cors");
 const userRouter = require("./routes/userRouter");
 const moviesRouter = require("./routes/moviesRouter");
 const searchRouter = require("./routes/searchRouter");
+const { sequelize } = require("./models"); // Import Sequelize instance
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -17,6 +18,16 @@ app.use(
     credentials: true,
   })
 );
+
+// Test database connection
+(async () => {
+  try {
+    await sequelize.authenticate();
+    console.log("Database connected successfully!");
+  } catch (error) {
+    console.error("Unable to connect to the database:", error);
+  }
+})();
 
 // to parse incoming JSON data in the request body
 app.use(express.json());

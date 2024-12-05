@@ -16,16 +16,6 @@ function verifyToken(req, res, next) {
   }
 }
 
-function verifyTokenAndAuthorization(req, res, next) {
-  verifyToken(req, res, () => {
-    if (req.user.id == req.params.id || req.user.role === "admin") {
-      next();
-    } else {
-      res.status(403).json("You are not allowed to perform this action");
-    }
-  });
-}
-
 function verifyTokenAndAdmin(req, res, next) {
   verifyToken(req, res, () => {
     if (req.user.role === "admin") {
@@ -38,6 +28,5 @@ function verifyTokenAndAdmin(req, res, next) {
 
 module.exports = {
   verifyToken,
-  verifyTokenAndAuthorization,
   verifyTokenAndAdmin,
 };
