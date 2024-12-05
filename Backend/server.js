@@ -35,7 +35,6 @@ app.use(express.json());
 // Routes Middlware
 app.use("/users", userRouter);
 app.use("/movies", moviesRouter);
-app.use("/search", searchRouter);
 
 //Initiating Server
 app.listen(7000, () => {
