@@ -28,3 +28,5 @@ router.post("/favourites/:id", verifyToken, addToMyFavourites);
 
 // Delete from My Favourites
 router.delete("/favourites/:id", verifyToken, deleteFromMyFavourites);
+
+module.exports = router;

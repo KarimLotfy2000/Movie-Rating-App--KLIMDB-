@@ -10,10 +10,11 @@ const userRegister = async (req, res) => {
   const { name, email, password } = req.body;
   const { error } = registerValidation(req.body);
 
-  if (error) return res.status(400).send(error.message);
+  if (error) return res.status(400).send({ error: error.message });
 
   const isEmailRegistered = await users.findOne({ where: { email } });
-  if (isEmailRegistered) return res.status(400).json("User already exists");
+  if (isEmailRegistered)
+    return res.status(400).json({ error: "User already exists" });
 
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
@@ -36,7 +37,10 @@ const userLogin = async (req, res) => {
   const { error } = loginValidation(req.body);
   if (error) return res.status(400).send(error.message);
   try {
-    const isEmailRegistered = users.findOne({ where: { email }, raw: true });
+    const isEmailRegistered = await users.findOne({
+      where: { email },
+      raw: true,
+    });
     if (!isEmailRegistered)
       return res.status(400).json({ error: "Email not found" });
 
@@ -52,7 +56,8 @@ const userLogin = async (req, res) => {
       // TODO: Add refresh token implementation and res.cookie
       expiresIn: "24h",
     });
-    res.json({ user, token });
+
+    res.json({ ...user, token });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

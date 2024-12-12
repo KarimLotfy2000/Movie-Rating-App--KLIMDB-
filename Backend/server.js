@@ -2,7 +2,6 @@ const express = require("express");
 const cors = require("cors");
 const userRouter = require("./routes/userRouter");
 const moviesRouter = require("./routes/moviesRouter");
-const searchRouter = require("./routes/searchRouter");
 const { sequelize } = require("./models"); // Import Sequelize instance
 
 const dotenv = require("dotenv");

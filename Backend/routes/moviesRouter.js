@@ -16,8 +16,11 @@ const { verifyToken, verifyTokenAndAdmin } = require("../utils/verify");
 // Get All Movies with limited attributes
 router.get("/", getAllMovies);
 
+// Search for a certain Movie
+router.get("/search", searchMovies);
+
 // Get a Certain Movie
-router.get("/:id", verifyToken, getMovie);
+router.get("/:id", getMovie);
 
 // Add a Movie
 router.post("/add", verifyTokenAndAdmin, addMovie);
@@ -27,9 +30,6 @@ router.post("/add-multiple", verifyTokenAndAdmin, addMultipleMovies);
 
 // Delete a Certain Movie
 router.delete("/:id", verifyTokenAndAdmin, deleteMovie);
-
-// Search for a certain Movie
-router.get("/search", searchMovies);
 
 // Give a rating to a certain Movie
 router.post("/:id/ratings", verifyToken, addRating);

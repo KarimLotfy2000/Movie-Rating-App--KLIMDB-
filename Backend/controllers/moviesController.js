@@ -1,4 +1,5 @@
 // moviesController.js
+const { Op } = require("sequelize");
 const { movies, ratings, users, sequelize } = require("../models");
 
 const getAllMovies = async (_, res) => {
@@ -14,7 +15,7 @@ const getAllMovies = async (_, res) => {
 
 const getMovieDetails = async (movieId) => {
   try {
-    const movie = await movies.findByPk(movieId);
+    const movie = await movies.findByPk(movieId, { raw: true });
     if (!movie) {
       throw new Error("Movie not found");
     }
@@ -79,10 +80,10 @@ const getMovie = async (req, res) => {
     const movie = await getMovieDetails(movieId);
     const avgRating = await getAverageRating(movieId);
     const reviews = await getReviews(movieId);
-
     const response = {
       id: movie.id,
-      title: movie.title,
+      name: movie.name,
+      year: movie.year,
       genre: movie.genre,
       image: movie.image,
       trailer: movie.trailer,
@@ -148,6 +149,7 @@ const deleteMovie = async (req, res) => {
 const searchMovies = async (req, res) => {
   try {
     const searchTerm = req.query.q;
+    console.log(`Search term: ${searchTerm}`); // Log the search term
 
     const results = await movies.findAll({
       where: {
@@ -160,13 +162,13 @@ const searchMovies = async (req, res) => {
       },
     });
 
+    console.log(`Search results: ${JSON.stringify(results)}`); // Log the search results
     res.json(results);
   } catch (error) {
-    console.error("Error searching movies:", error);
+    console.error("Error searching movies:", error); // Log the error
     res.status(500).json({ error: "An error occurred while searching movies" });
   }
 };
-
 const addRating = async (req, res) => {
   const movie_id = req.params.id;
   const { rating, review } = req.body;
