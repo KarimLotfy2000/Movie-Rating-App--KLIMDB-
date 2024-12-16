@@ -14,6 +14,8 @@ function RateMovie() {
   const [openModal, setOpenModal] = useState(false);
   const [ratingInput, setRatingInput] = useState("");
   const [reviewInput, setReviewInput] = useState("");
+  const [showAllReviews, setShowAllReviews] = useState(false);
+  const displayedReviews = showAllReviews ? reviews : reviews.slice(0, 3);
   const [error, setError] = useState("");
 
   const { id } = useParams();
@@ -24,9 +26,9 @@ function RateMovie() {
   useEffect(() => {
     const fetchMovie = async () => {
       try {
-        const data = await fetchMovieDetails(id);
-        setMovie(data);
-        setReviews(data.reviews || []);
+        const movie = await fetchMovieDetails(id);
+        setMovie(movie);
+        setReviews(movie.reviews || []);
       } catch (err) {
         showSnackbar("Failed to load movie details", "error");
       } finally {
@@ -92,7 +94,7 @@ function RateMovie() {
         <div className={styles.subInfo}>
           <span className={styles.movieYear}>{movie.year}</span>
           <span className={styles.movieGenre}>
-            {movie.genre?.toUpperCase()}
+            {movie.genres?.map((genre) => genre.name.toUpperCase()).join(", ")}
           </span>
           <span className={styles.movieRating}>
             {movie.average_rating || "N/A"}/5
@@ -135,23 +137,29 @@ function RateMovie() {
               <div className={styles.actorsList}>
                 {movie.actors.map((actor, index) => (
                   <span key={index} className={styles.actorItem}>
-                    {actor}
+                    {actor.name}
                   </span>
                 ))}
               </div>
             </div>
           )}
+          <div className={styles.actorsSection}>
+            <h2>Director</h2>
+            <span className={styles.actorItem}>{movie.director}</span>
+          </div>
         </div>
       </div>
       <div className={styles.reviewsSection}>
         <h2>Reviews</h2>
-        {reviews.length > 0 ? (
-          reviews.map((review, index) => (
+        {displayedReviews.length > 0 ? (
+          displayedReviews.map((review, index) => (
             <div className={styles.reviewItem} key={index}>
               <div className={styles.reviewAvatar}>{review.name.charAt(0)}</div>
               <div className={styles.reviewContent}>
-                <h4>{review.name}</h4>
-                <p>{review.review}</p>
+                <h4 className={styles.reviewName}>
+                  {review.name.toUpperCase()}
+                </h4>
+                <p className={styles.reviewText}>{review.review}</p>
               </div>
             </div>
           ))
@@ -159,6 +167,14 @@ function RateMovie() {
           <p className={styles.noReviews}>
             No reviews yet. Be the first to rate and review this movie!
           </p>
+        )}
+        {reviews.length > 3 && (
+          <button
+            className={styles.showMoreButton}
+            onClick={() => setShowAllReviews(!showAllReviews)}
+          >
+            {showAllReviews ? "Show Less" : "Show More"}
+          </button>
         )}
       </div>
       <Modal
