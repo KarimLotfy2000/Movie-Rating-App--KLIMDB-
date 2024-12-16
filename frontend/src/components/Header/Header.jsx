@@ -7,10 +7,10 @@ function Header() {
   const { currentUser, setcurrentUser } = useContext(AuthContext);
 
   const logout = () => {
-    localStorage.clear(); // Clears everything from localStorage
-    setcurrentUser(null); // Updates your app's state
-    console.log(localStorage); // Debug: Should be empty
-    window.location = "/login"; // Redirect to login
+    localStorage.clear();
+    setcurrentUser(null);
+    console.log(localStorage);
+    window.location = "/login";
   };
 
   const firstName = currentUser && currentUser.name.split(" ")[0];
@@ -43,9 +43,11 @@ function Header() {
             <button className={styles.navButton}>Login</button>
           </Link>
         )}
-        <Link to="/register">
-          <button className={styles.navButton}>Register</button>
-        </Link>
+        {!currentUser && (
+          <Link to="/register">
+            <button className={styles.navButton}>Register</button>
+          </Link>
+        )}
       </div>
     </div>
   );
