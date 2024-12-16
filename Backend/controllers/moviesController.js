@@ -166,23 +166,19 @@ const deleteMovie = async (req, res) => {
 const searchMovies = async (req, res) => {
   try {
     const searchTerm = req.query.q;
-    console.log(`Search term: ${searchTerm}`); // Log the search term
 
     const results = await movies.findAll({
       where: {
         [Op.or]: [
           { name: { [Op.like]: `%${searchTerm}%` } },
-          { actors: { [Op.like]: `%${searchTerm}%` } },
           { description: { [Op.like]: `%${searchTerm}%` } },
-          { genre: { [Op.like]: `%${searchTerm}%` } },
         ],
       },
     });
 
-    console.log(`Search results: ${JSON.stringify(results)}`); // Log the search results
     res.json(results);
   } catch (error) {
-    console.error("Error searching movies:", error); // Log the error
+    console.error("Error searching movies:", error);
     res.status(500).json({ error: "An error occurred while searching movies" });
   }
 };
