@@ -25,7 +25,7 @@ module.exports = function (sequelize, DataTypes) {
         },
       },
       rating: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.DECIMAL(3, 1),
         allowNull: false,
         validate: {
           min: 1,

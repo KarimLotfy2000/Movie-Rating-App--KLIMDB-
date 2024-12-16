@@ -2,21 +2,15 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    // Change 'rating' column to INTEGER
     await queryInterface.changeColumn("ratings", "rating", {
-      type: Sequelize.INTEGER,
+      type: Sequelize.DECIMAL(3, 1), // Allows values like 8.5, 9.0, etc.
       allowNull: false,
-      validate: {
-        min: 1,
-        max: 5,
-      },
     });
   },
 
   async down(queryInterface, Sequelize) {
-    // Revert 'rating' column to DECIMAL(5,2)
     await queryInterface.changeColumn("ratings", "rating", {
-      type: Sequelize.DECIMAL(5, 2),
+      type: Sequelize.INTEGER,
       allowNull: false,
     });
   },

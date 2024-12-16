@@ -17,18 +17,9 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      genre: {
-        type: DataTypes.STRING(255),
-        allowNull: false,
-      },
       description: {
-        type: DataTypes.STRING(255),
-        allowNull: false,
-        defaultValue: "",
-      },
-      actors: {
-        type: DataTypes.STRING(255),
-        allowNull: false,
+        type: DataTypes.TEXT,
+        allowNull: true,
       },
       image: {
         type: DataTypes.STRING(300),
@@ -37,6 +28,18 @@ module.exports = function (sequelize, DataTypes) {
       trailer: {
         type: DataTypes.STRING(255),
         allowNull: false,
+      },
+      director: {
+        type: DataTypes.STRING(255),
+        allowNull: true,
+      },
+      runtime: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      box_office: {
+        type: DataTypes.DECIMAL(15, 2),
+        allowNull: true,
       },
     },
     {
