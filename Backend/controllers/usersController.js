@@ -81,6 +81,7 @@ const getMyFavourites = async (req, res) => {
       include: [
         {
           model: favourites,
+          as: "favourites",
           attributes: [],
           where: { user_id },
         },
@@ -96,19 +97,27 @@ const addToMyFavourites = async (req, res) => {
   const user_id = req.user.id;
   const movie_id = req.params.id;
   try {
+    const existingFavourite = await favourites.findOne({
+      where: {
+        user_id,
+        movie_id,
+      },
+    });
+
+    if (existingFavourite) {
+      return res.status(400).json({ error: "Movie already in favourites" });
+    }
     await favourites.create({
       user_id,
       movie_id,
     });
-    res.json("Movie added to favourites successfully");
+
+    res.json({ message: "Movie added to favourites successfully" });
   } catch (error) {
-    if (error.code === "ER_DUP_ENTRY") {
-      res.status(400).json("Movie already in favourites");
-    } else {
-      res.status(500).json({ error: error.message });
-    }
+    res.status(500).json({ error: error.message });
   }
 };
+
 const deleteFromMyFavourites = async (req, res) => {
   const user_id = req.user.id;
   const movie_id = req.params.id;
