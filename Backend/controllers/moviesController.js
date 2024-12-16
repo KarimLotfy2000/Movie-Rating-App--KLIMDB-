@@ -1,11 +1,18 @@
 // moviesController.js
 const { Op } = require("sequelize");
-const { movies, ratings, users, sequelize } = require("../models");
+const {
+  movies,
+  ratings,
+  users,
+  actors,
+  genres,
+  sequelize,
+} = require("../models");
 
 const getAllMovies = async (_, res) => {
   try {
     const allMovies = await movies.findAll({
-      attributes: ["id", "name", "year", "genre", "image"],
+      attributes: ["id", "name", "year", "image"],
     });
     res.json(allMovies);
   } catch (err) {
@@ -15,12 +22,29 @@ const getAllMovies = async (_, res) => {
 
 const getMovieDetails = async (movieId) => {
   try {
-    const movie = await movies.findByPk(movieId, { raw: true });
-    if (!movie) {
+    const movieWithDetails = await movies.findOne({
+      where: { id: movieId },
+      include: [
+        {
+          model: actors,
+          as: "actors",
+          through: { attributes: [] },
+          attributes: ["id", "name"],
+        },
+        {
+          model: genres,
+          as: "genres",
+          through: { attributes: [] },
+          attributes: ["id", "name"],
+        },
+      ],
+    });
+
+    if (!movieWithDetails) {
       throw new Error("Movie not found");
     }
-    movie.actors = movie.actors.split("\r\n");
-    return movie;
+
+    return movieWithDetails;
   } catch (error) {
     console.error("Error fetching movie data:", error);
     throw new Error("Internal Server Error");
@@ -81,14 +105,7 @@ const getMovie = async (req, res) => {
     const avgRating = await getAverageRating(movieId);
     const reviews = await getReviews(movieId);
     const response = {
-      id: movie.id,
-      name: movie.name,
-      year: movie.year,
-      genre: movie.genre,
-      image: movie.image,
-      trailer: movie.trailer,
-      description: movie.description,
-      actors: movie.actors,
+      ...movie.toJSON(),
       average_rating: avgRating,
       reviews: reviews,
     };
