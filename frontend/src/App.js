@@ -5,16 +5,17 @@ import {
   Navigate,
   useLocation,
 } from "react-router-dom";
-import Home from "./pages/Home";
-import RateMovie from "./pages/RateMovie";
-import Favourites from "./pages/Favourites";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
-import AddMovie from "./pages/AddMovie";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+
 import { AuthContext } from "./context/authContext";
 import { useContext } from "react";
+import Header from "./components/Header/Header";
+import AddMovie from "./pages/AddMovie/AddMovie";
+import Favourites from "./pages/Favourites/Favourites";
+import Login from "./pages/Login/Login";
+import Register from "./pages/Register/Register";
+import Home from "./pages/Home/Home";
+import Footer from "./components/Footer/Footer";
+import RateMovie from "./pages/RateMovie/RateMovie";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -38,12 +39,7 @@ function AppContent({ currentUser }) {
       <main className="main-content">
         <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route
-            path="/rate/:id"
-            element={
-              currentUser ? <RateMovie /> : <Navigate replace to={"/login"} />
-            }
-          />
+          <Route path="/rate/:id" element={<RateMovie />} />
           <Route
             exact
             path="/add"

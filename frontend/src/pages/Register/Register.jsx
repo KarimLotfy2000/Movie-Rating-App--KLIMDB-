@@ -1,35 +1,35 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import axios from "axios";
-import { BASE_URL } from "../consts";
+import styles from "./Register.module.css";
+import { register } from "../../api/apiServices";
+import { useError } from "../../context/errorContext";
 
 function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const navigate = useNavigate();
-
+  const showSnackbar = useError();
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.post(`${BASE_URL}/users/register`, { name, email, password });
+      await register(name, email, password);
       navigate("/login");
     } catch (err) {
-      setError(err.response?.data?.message || "Registration failed");
+      showSnackbar(err.response?.data?.error || "Registration failed", "error");
     }
   };
 
   return (
-    <div className="auth-page">
-      <div className="auth-image">
-        <img src=" banner.jpeg" alt="Banner" />
+    <div className={styles.authPage}>
+      <div className={styles.authImage}>
+        <img src="banner.jpeg" alt="Banner" />
       </div>
-      <div className="auth-form">
-        <div className="container">
-          <h1 className="title">Register</h1>
-          <div className="form-container">
-            <form className="form" onSubmit={handleSubmit}>
+      <div className={styles.authForm}>
+        <div className={styles.container}>
+          <h1 className={styles.title}>Register</h1>
+          <div className={styles.formContainer}>
+            <form className={styles.form} onSubmit={handleSubmit}>
               <label>
                 Name:
                 <input
@@ -54,18 +54,13 @@ function Register() {
                   onChange={(event) => setPassword(event.target.value)}
                 />
               </label>
-              <button className="submit-button" type="submit">
+              <button className={styles.submitButton} type="submit">
                 Submit
               </button>
-              {error && (
-                <div className="error-box">
-                  <div className="error-message">{error}</div>
-                </div>
-              )}
             </form>
-            <p className="to-login">
+            <p className={styles.toLogin}>
               Already have an account?{" "}
-              <Link to="/login" className="link">
+              <Link to="/login" className={styles.link}>
                 Login
               </Link>
             </p>

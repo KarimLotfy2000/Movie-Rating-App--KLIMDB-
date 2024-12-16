@@ -1,0 +1,240 @@
+.rateMovieContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px;
+  background-color: #0c001a;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+}
+
+.loadingSpinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-top: 4px solid #ffcc00;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.movieHeader {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.movieTitle {
+  font-size: 3rem;
+  color: #ffcc00;
+}
+
+.subInfo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 10px;
+  font-size: 1.2rem;
+  color: #b3b3b3;
+}
+
+.movieMedia {
+  display: flex;
+  justify-content: start;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+
+.moviePoster {
+  width: 400px;
+  height: 550px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.movieTrailer {
+  width: 700px;
+  height: 550px;
+  border-radius: 15px;
+}
+.movieTrailer iframe {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+}
+
+.leftPosterWithText {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .movieMedia {
+    flex-direction: column;
+    align-items: center;
+  }
+  .moviePoster {
+    display: none;
+  }
+  .movieTrailer {
+    width: 100%;
+    height: 400px;
+  }
+  .posterWithTextContainer {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 40px;
+  }
+  .moviePosterBottom {
+    display: flex;
+  }
+  .leftPosterWithText {
+    display: flex;
+    width: 100%;
+    height: 350px;
+    border-radius: 15px;
+  }
+}
+
+.movieDescription {
+  margin: 20px 0;
+}
+
+.movieDescription h2 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  color: #ffcc00;
+}
+
+.movieDescription p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #d3d3d3;
+}
+
+.actorsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.actorItem {
+  background-color: #310075;
+  color: #ffffff;
+  padding: 5px 15px;
+  border-radius: 10px;
+}
+
+.rateButton {
+  background: transparent;
+  border: 2px solid #ffcc00;
+  border-radius: 50%;
+  color: #ffcc00;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 5px;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.rateButton:hover {
+  color: #fff700;
+  transform: scale(1.1);
+}
+
+.reviewsSection {
+  margin-top: 30px;
+}
+
+.reviewItem {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #3e0656;
+  border-radius: 12px;
+  align-items: center;
+}
+
+.reviewAvatar {
+  width: 50px;
+  height: 50px;
+  background-color: #310075;
+  color: #ffffff;
+  font-size: 1.5rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.reviewContent h4 {
+  font-size: 1.2rem;
+  color: #ffcc00;
+}
+
+.reviewContent p {
+  margin: 5px 0;
+  color: #d3d3d3;
+}
+
+.noReviews {
+  color: #b3b3b3;
+  font-size: 1.2rem;
+  text-align: center;
+}
+/* Modal Styling */
+
+.modalInput,
+.modalTextarea {
+  width: 100%;
+  padding: 12px;
+  font-size: 18px;
+  font-weight: 700;
+  background: #bebbbe;
+  color: #000000;
+  border: 1px solid #532c8a;
+  border-radius: 6px;
+  font-family: "Arial", sans-serif;
+}
+.modalInput {
+  width: 30%;
+  margin: 10px auto;
+}
+
+.modalSubmit,
+.modalCancel {
+  background: #5320aa;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modalSubmit:hover {
+  background: #7545c1;
+}
+
+.modalCancel:hover {
+  background: #943434;
+}
+
+.errorText {
+  color: #ff4444;
+  margin-bottom: 10px;
+}

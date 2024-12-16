@@ -1,0 +1,45 @@
+/* Reusable Modal Styling */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: #1e1e2a;
+  color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 450px;
+  width: 90%;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.modalTitle {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #ffcc00;
+}
+
+.modalBody {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}

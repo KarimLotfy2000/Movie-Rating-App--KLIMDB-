@@ -1,0 +1,125 @@
+.authPage {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.authImage {
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.authImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+}
+
+.authForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #3e0656;
+  padding: 40px;
+}
+
+.container {
+  max-width: 600px;
+  width: 100%;
+  background-color: #3d3d3d;
+  padding: 50px;
+  border-radius: 20px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5rem;
+  color: #ffffff;
+  margin-bottom: 30px;
+}
+
+input {
+  padding: 15px;
+  font-size: 1.2rem;
+  border: 2px solid #ccc;
+  border-radius: 12px;
+  background-color: #fff;
+  color: #333;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  border-color: #3e0656;
+}
+
+.submitButton {
+  padding: 15px 20px;
+  font-size: 1.5rem;
+  background-color: #3e0656;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 30px auto;
+  display: block;
+  text-align: center;
+  width: 30%;
+}
+
+.submitButton:hover {
+  background-color: #1e002b;
+}
+
+.errorBox {
+  margin: 15px auto;
+  width: fit-content;
+  padding: 10px;
+  border-radius: 13px;
+  background-color: #880606;
+  text-align: center;
+}
+
+.errorMessage {
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.toLogin {
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 20px;
+  color: #ffffff;
+}
+
+.link {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.link:hover {
+  text-decoration: underline;
+  color: #3e0656;
+}

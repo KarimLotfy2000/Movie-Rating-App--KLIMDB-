@@ -1,45 +1,40 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import axios from "axios";
 import debounce from "lodash.debounce";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import MovieCard from "../components/MovieCard";
-import { BASE_URL } from "../consts";
-import { sortMovies } from "../utils";
+import { sortMovies } from "../../utils";
+import { fetchMovies } from "../../api/apiServices";
+import MovieCard from "../../components/MovieCard/MovieCard";
+import styles from "./Home.module.css";
+import { useError } from "./../../context/errorContext";
 
 function Home() {
   const [movies, setMovies] = useState([]);
   const [sortedMovies, setSortedMovies] = useState([]);
-  const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOption, setSortOption] = useState("title-asc");
   const navigate = useNavigate();
   const location = useLocation();
+  const showSnackbar = useError();
 
   const getSearchTermFromURL = () => {
     const queryParams = new URLSearchParams(location.search);
     return queryParams.get("q") || "";
   };
 
-  const fetchMovies = async (query) => {
+  const handleFetchMovies = async (query) => {
     try {
       setIsLoading(true);
-      const endpoint = query
-        ? `${BASE_URL}/search/?q=${query}`
-        : `${BASE_URL}/movies/`;
-      const response = await axios.get(endpoint);
+      const movies = await fetchMovies(query);
 
-      if (response.data.length === 0) {
+      if (movies.length === 0) {
         setMovies([]);
       } else {
-        setMovies(response.data);
-        setError("");
+        setMovies(movies);
       }
     } catch (err) {
       console.error(err);
-      setError("Error fetching movies");
+      showSnackbar("Failed to fetch movies", "error");
     } finally {
       setIsLoading(false);
     }
@@ -53,7 +48,7 @@ function Home() {
   useEffect(() => {
     const query = getSearchTermFromURL();
     setSearchTerm(query);
-    fetchMovies(query);
+    handleFetchMovies(query);
   }, [location.search]);
 
   useEffect(() => {
@@ -75,29 +70,28 @@ function Home() {
   };
 
   return (
-    <div className="bigbox">
+    <div className={styles.bigbox}>
       {isLoading ? (
-        <div className="loading-spinner">
-          <div className="spinner"></div>
+        <div className={styles.loadingSpinner}>
+          <div className={styles.spinner}></div>
         </div>
       ) : (
         <>
-          <div className="search-sort-box">
-            <div className="search-box">
+          <div className={styles.searchSortBox}>
+            <div className={styles.searchBox}>
               <input
-                type="text"
+                type="search"
                 value={searchTerm}
                 onChange={handleSearchChange}
                 placeholder="Search movies..."
-                className="search-input"
+                className={styles.searchInput}
               />
-              {error && <div className="error-message">{error}</div>}
             </div>
-            <div className="sort-box">
+            <div className={styles.sortBox}>
               <select
                 value={sortOption}
                 onChange={handleSortChange}
-                className="sort-dropdown"
+                className={styles.sortDropdown}
               >
                 <option value="title-asc">Title (A-Z)</option>
                 <option value="title-desc">Title (Z-A)</option>
@@ -119,12 +113,11 @@ function Home() {
               No movies found
             </div>
           ) : (
-            <div className="list">
+            <div className={styles.list}>
               {sortedMovies.map((movie) => (
                 <MovieCard
                   movie={movie}
                   islower={true}
-                  bigger={false}
                   favouritesPage={false}
                   key={movie.id}
                 />

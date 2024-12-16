@@ -1,0 +1,92 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2a064a;
+  width: 100%;
+  padding: 20px;
+  margin-bottom: 110px;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  flex-wrap: wrap;
+}
+
+.headerTitle {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ffcc00;
+  border: 2px solid #ffcc00;
+  padding: 10px;
+  margin: 0;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.username {
+  color: rgb(253, 253, 253);
+  font-style: italic;
+  font-size: 1.2rem;
+  margin-top: 10px;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+  justify-content: flex-start;
+}
+
+.navButton {
+  border: none;
+  background-color: transparent;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  font-style: italic;
+  transition: color 0.3s ease-in-out;
+}
+
+.navButton:hover {
+  text-decoration: underline;
+  color: #ffcc00;
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 80px;
+  }
+
+  .headerTitle {
+    font-size: 1.8rem;
+    padding: 8px;
+  }
+
+  .buttons {
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .username {
+    font-size: 1rem;
+    margin-top: 5px;
+  }
+
+  .navButton {
+    font-size: 1rem;
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .headerTitle {
+    font-size: 1.5rem;
+  }
+
+  .navButton {
+    font-size: 0.9rem;
+  }
+}

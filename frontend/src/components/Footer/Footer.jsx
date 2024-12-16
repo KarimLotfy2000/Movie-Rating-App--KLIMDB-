@@ -1,26 +1,27 @@
 import React from "react";
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
+import styles from "./Footer.module.css";
 
 function Footer() {
   return (
-    <footer className="footer">
+    <footer className={styles.footer}>
       <p>&copy; 2023 Karim Lotfy</p>
-      <div className="social-icons">
+      <div className={styles.socialIcons}>
         <a
           href="https://www.facebook.com/"
           target="_blank"
           rel="noopener noreferrer"
-          className="social-link"
+          className={styles.socialLink}
         >
-          <FaFacebookF className="social-icon" />
+          <FaFacebookF className={styles.socialIcon} />
         </a>
         <a
           href="https://www.instagram.com/karim.lotfy00/"
           target="_blank"
           rel="noopener noreferrer"
-          className="social-link"
+          className={styles.socialLink}
         >
-          <FaInstagram className="social-icon" />
+          <FaInstagram className={styles.socialIcon} />
         </a>
       </div>
     </footer>
