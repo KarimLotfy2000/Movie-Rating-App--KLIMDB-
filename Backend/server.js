@@ -2,23 +2,20 @@ const express = require("express");
 const cors = require("cors");
 const userRouter = require("./routes/userRouter");
 const moviesRouter = require("./routes/moviesRouter");
-const { sequelize } = require("./models"); // Import Sequelize instance
+const { sequelize } = require("./models");
 
 const dotenv = require("dotenv");
 dotenv.config();
 
-//for Building RESt API
 app = express();
 
-//enable clients from different domains to access the resources of the server.
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: process.env.FRONTEND_URL || "http://localhost:3000",
     credentials: true,
   })
 );
 
-// Test database connection
 (async () => {
   try {
     await sequelize.authenticate();
@@ -28,14 +25,11 @@ app.use(
   }
 })();
 
-// to parse incoming JSON data in the request body
 app.use(express.json());
 
-// Routes Middlware
 app.use("/users", userRouter);
 app.use("/movies", moviesRouter);
 
-//Initiating Server
 app.listen(7000, () => {
   console.log("Server running on port 7000");
 });
