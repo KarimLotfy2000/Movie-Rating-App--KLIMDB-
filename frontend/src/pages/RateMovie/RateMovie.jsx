@@ -79,6 +79,10 @@ function RateMovie() {
     }
   };
 
+  const formatBoxOffice = (value) => {
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " $";
+  };
+
   if (isLoading) {
     return (
       <div className={styles.loadingSpinner}>
@@ -96,6 +100,11 @@ function RateMovie() {
           <span className={styles.movieGenre}>
             {movie.genres?.map((genre) => genre.name.toUpperCase()).join(", ")}
           </span>
+          <span className={styles.movieYear}>{movie.runtime} mins.</span>
+          <span className={styles.movieYear}>
+            - BOX OFFICE: {formatBoxOffice(movie.box_office)} -
+          </span>
+
           <span className={styles.movieRating}>
             {movie.average_rating || "N/A"}/5
           </span>
