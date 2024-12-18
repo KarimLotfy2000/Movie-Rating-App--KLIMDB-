@@ -26,9 +26,8 @@ function AddMovie() {
 
       window.location = "/";
     } catch (error) {
-      console.log(error);
       const errorMessage = error.response.data.error || error.message;
-      setError(error);
+      setError(errorMessage);
     }
   };
 

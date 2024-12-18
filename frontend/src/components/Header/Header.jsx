@@ -9,7 +9,6 @@ function Header() {
   const logout = () => {
     localStorage.clear();
     setcurrentUser(null);
-    console.log(localStorage);
     window.location = "/login";
   };
 

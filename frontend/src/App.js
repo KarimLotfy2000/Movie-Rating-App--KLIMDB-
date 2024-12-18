@@ -25,6 +25,7 @@ function App() {
     </Router>
   );
 }
+console.log("App Loaded");
 
 function AppContent({ currentUser }) {
   return (
