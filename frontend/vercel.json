@@ -1,5 +1,7 @@
 {
-  "routes": [{ "src": "/(.*)", "dest": "/index.html" }],
-
+  "routes": [
+    { "src": "/static/(.*)", "dest": "/static/$1" },
+    { "src": "/(.*)", "dest": "/index.html" }
+  ],
   "outputDirectory": "build"
 }
