@@ -3,7 +3,6 @@ import {
   Route,
   Routes,
   Navigate,
-  useLocation,
 } from "react-router-dom";
 
 import { AuthContext } from "./context/authContext";
@@ -28,14 +27,9 @@ function App() {
 }
 
 function AppContent({ currentUser }) {
-  const location = useLocation();
-
-  const hideHeaderRoutes = ["/login", "/register"];
-  const shouldRenderHeader = !hideHeaderRoutes.includes(location.pathname);
-
   return (
     <div className="app-container">
-      {shouldRenderHeader && <Header />}
+      <Header />
       <main className="main-content">
         <Routes>
           <Route exact path="/" element={<Home />} />

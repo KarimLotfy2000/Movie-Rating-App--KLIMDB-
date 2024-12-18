@@ -51,15 +51,30 @@
 .searchInput {
   width: 100%;
   height: 45px;
-  padding: 10px;
+  padding: 10px 15px;
   font-size: 16px;
   border-radius: 8px;
   border: 2px solid #3e0656;
   background-color: #ffffff;
+  color: #2a064a;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  outline: none;
 }
 
+.searchInput:focus {
+  border-color: #5320aa;
+  box-shadow: 0 0 8px rgba(83, 32, 170, 0.3);
+}
+
+.searchInput::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
 .sortBox {
-  width: 150px;
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
 }
 
 .sortDropdown {
@@ -69,12 +84,159 @@
   border-radius: 8px;
   border: 2px solid #3e0656;
   background-color: #ffffff;
+  color: #3e0656;
   cursor: pointer;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sortDropdown:focus {
+  outline: none;
+  border-color: #5320aa;
+  box-shadow: 0 0 5px rgba(83, 32, 170, 0.3);
+}
+
+.sortDropdown option {
+  background-color: #ffffff;
+  color: #3e0656;
+  padding: 10px;
+}
+
+.sortDropdown option:hover,
+.sortDropdown option:checked {
+  background-color: #5320aa;
+  color: #ffffff;
+}
+
+/* Prevent options overflow */
+@media screen and (max-width: 768px) {
+  .sortBox {
+    width: 100%;
+  }
+  .sortDropdown {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .sortBox {
+    width: 100%;
+    max-width: 100%; /* Let it take full width */
+  }
+
+  .sortDropdown {
+    width: 100%;
+  }
+}
+
+.filterButton {
+  padding: 15px 20px;
+  font-size: 14px;
+  background: linear-gradient(135deg, #3e0656, #5320aa);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  margin: 30px auto;
+  display: block;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.filterButton::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  transform: skewX(-45deg);
+  transition: left 0.4s ease;
+}
+
+.filterButton:hover::before {
+  left: 100%;
+}
+
+.filterButton:hover {
+  background: linear-gradient(135deg, #5320aa, #6f3eb7);
+  box-shadow: 0 8px 20px rgba(83, 32, 170, 0.5);
+  transform: translateY(-4px);
+}
+.clearFilterButton {
+  padding: 15px 20px;
+  font-size: 14px;
+  background: linear-gradient(135deg, #d1d1d1, #a3a3a3);
+  color: #333333;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  margin: 30px auto;
+  display: block;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.clearFilterButton::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: skewX(-45deg);
+  transition: left 0.4s ease;
+}
+
+.clearFilterButton:hover::before {
+  left: 100%;
+}
+
+.clearFilterButton:hover {
+  background: linear-gradient(135deg, #b3b3b3, #8e8e8e);
+  color: #000000;
+}
+
+.filterList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+.filterItem {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  padding: 10px 20px;
+}
+.filtersChipsBox {
+  display: flex;
+  flex-direction: column;
+}
+.filtersButtonsBox {
+  display: flex;
+  flex-wrap: wrap;
+  height: 55px;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  margin: 15px auto;
 }
 
 .list {
   display: flex;
   flex-wrap: wrap;
+  margin-top: 30px;
   justify-content: center;
   gap: 30px;
   width: 100%;
@@ -111,4 +273,22 @@
     width: 50px;
     height: 50px;
   }
+}
+.modalSubmit,
+.modalCancel {
+  background: #5320aa;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modalSubmit:hover {
+  background: #7545c1;
+}
+
+.modalCancel:hover {
+  background: #943434;
 }

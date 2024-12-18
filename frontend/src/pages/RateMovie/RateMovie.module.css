@@ -262,6 +262,7 @@
   border: 1px solid #532c8a;
   border-radius: 6px;
   font-family: "Arial", sans-serif;
+  overflow-x: none;
 }
 .modalInput {
   width: 30%;

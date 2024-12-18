@@ -5,7 +5,7 @@ import styles from "./Footer.module.css";
 function Footer() {
   return (
     <footer className={styles.footer}>
-      <p>&copy; 2023 Karim Lotfy</p>
+      <p>&copy; 2024 Karim Lotfy</p>
       <div className={styles.socialIcons}>
         <a
           href="https://www.facebook.com/"
@@ -16,7 +16,7 @@ function Footer() {
           <FaFacebookF className={styles.socialIcon} />
         </a>
         <a
-          href="https://www.instagram.com/karim.lotfy00/"
+          href="https://www.instagram.com/"
           target="_blank"
           rel="noopener noreferrer"
           className={styles.socialLink}

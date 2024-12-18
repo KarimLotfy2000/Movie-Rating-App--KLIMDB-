@@ -50,6 +50,7 @@ const MovieCard = ({ movie, onRemove, favouritesPage }) => {
         <img
           src={movie.image}
           alt={movie.name}
+          loading="lazy"
           className={`${styles.cardImg} ${loaded ? styles.loaded : ""}`}
           onLoad={() => setLoaded(true)}
           onError={() => console.error("Failed to load image")}

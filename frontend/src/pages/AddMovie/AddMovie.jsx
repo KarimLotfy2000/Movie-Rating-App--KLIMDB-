@@ -62,27 +62,11 @@ function AddMovie() {
             />
           </label>
           <label>
-            Genre:
-            <input
-              type="text"
-              value={genre}
-              onChange={(event) => setGenre(event.target.value)}
-            />
-          </label>
-          <label>
             Image URI:
             <input
               type="text"
               value={image}
               onChange={(event) => setImage(event.target.value)}
-            />
-          </label>
-          <label>
-            Actors separated by \r\n:
-            <input
-              type="text"
-              value={actors}
-              onChange={(event) => setActors(event.target.value)}
             />
           </label>
           <label>

@@ -1,9 +1,13 @@
 import backend from "./apiClient";
 
-export const fetchMovies = async (query) => {
-  const endpoint = query ? `/movies/search?q=${query}` : `/movies`;
-  const response = await backend.get(endpoint);
+export const fetchMovies = async (params) => {
+  const response = await backend.get("/movies", { params });
   return response.data;
+};
+
+export const fetchGenres = async () => {
+  const genres = await backend.get("/movies/genres");
+  return genres.data;
 };
 
 export const fetchFavoriteMovies = async () => {
