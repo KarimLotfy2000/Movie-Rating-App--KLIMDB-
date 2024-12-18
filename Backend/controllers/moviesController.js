@@ -9,14 +9,78 @@ const {
   sequelize,
 } = require("../models");
 
-const getAllMovies = async (_, res) => {
+const getAllMovies = async (req, res) => {
+  const { genre, year, q, sortBy } = req.query;
+
   try {
-    const allMovies = await movies.findAll({
+    const filterOptions = {
       attributes: ["id", "name", "year", "image"],
-    });
-    res.json(allMovies);
+      include: [],
+      where: {},
+      order: [],
+    };
+
+    if (q) {
+      filterOptions.where[Op.or] = [
+        { name: { [Op.like]: `%${q}%` } },
+        { description: { [Op.like]: `%${q}%` } },
+      ];
+    }
+
+    if (genre) {
+      const genreArray = genre.split(",").map((g) => g.trim());
+
+      filterOptions.include.push({
+        model: genres,
+        as: "genres",
+        where: { name: { [Op.in]: genreArray } },
+        through: { attributes: [] },
+        attributes: [],
+      });
+    }
+
+    if (year) {
+      filterOptions.where.year = year;
+    }
+
+    switch (sortBy) {
+      case "name_asc":
+        filterOptions.order.push(["name", "ASC"]);
+        break;
+      case "name_desc":
+        filterOptions.order.push(["name", "DESC"]);
+        break;
+      case "year_asc":
+        filterOptions.order.push(["year", "ASC"]);
+        break;
+      case "year_desc":
+        filterOptions.order.push(["year", "DESC"]);
+        break;
+      default:
+        break;
+    }
+    const allMovies = await movies.findAll(filterOptions);
+    const response = {
+      movies: allMovies,
+    };
+
+    res.status(200).json(response);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error("Error fetching movies:", err.message);
+    res
+      .status(500)
+      .json({ error: "An internal error occurred while fetching movies." });
+  }
+};
+
+const getAllGenres = async (_, res) => {
+  try {
+    const allGenres = await genres.findAll({
+      attributes: ["id", "name"],
+    });
+    res.json(allGenres);
+  } catch (error) {
+    res.status(400).json(error);
   }
 };
 
@@ -163,25 +227,6 @@ const deleteMovie = async (req, res) => {
   }
 };
 
-const searchMovies = async (req, res) => {
-  try {
-    const searchTerm = req.query.q;
-
-    const results = await movies.findAll({
-      where: {
-        [Op.or]: [
-          { name: { [Op.like]: `%${searchTerm}%` } },
-          { description: { [Op.like]: `%${searchTerm}%` } },
-        ],
-      },
-    });
-
-    res.json(results);
-  } catch (error) {
-    console.error("Error searching movies:", error);
-    res.status(500).json({ error: "An error occurred while searching movies" });
-  }
-};
 const addRating = async (req, res) => {
   const movie_id = req.params.id;
   const { rating, review } = req.body;
@@ -227,10 +272,10 @@ const deleteRating = async (req, res) => {
 
 module.exports = {
   getAllMovies,
+  getAllGenres,
   getMovie,
   addMovie,
   addMultipleMovies,
-  searchMovies,
   deleteMovie,
   addRating,
   deleteRating,

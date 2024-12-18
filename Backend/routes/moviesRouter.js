@@ -6,18 +6,18 @@ const {
   getMovie,
   addMovie,
   addMultipleMovies,
-  searchMovies,
   deleteMovie,
   addRating,
   deleteRating,
+  getAllGenres,
 } = require("../controllers/moviesController");
 const { verifyToken, verifyTokenAndAdmin } = require("../utils/verify");
 
-// Get All Movies with limited attributes
+// Get All Movies
 router.get("/", getAllMovies);
 
-// Search for a certain Movie
-router.get("/search", searchMovies);
+// Get All Genres
+router.get("/genres", getAllGenres);
 
 // Get a Certain Movie
 router.get("/:id", getMovie);
