@@ -1,0 +1,32 @@
+.chipsBar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 30px;
+}
+
+.chip {
+  display: flex;
+  align-items: center;
+  background-color: #5320aa;
+  color: #ffffff;
+  border-radius: 16px;
+  padding: 7px 12px;
+  font-size: 14px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.chip:hover {
+  background-color: #6a29d6;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+.clearButton {
+  background: none;
+  border: none;
+  color: #ffffff;
+  margin-left: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
