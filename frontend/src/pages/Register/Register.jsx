@@ -7,6 +7,7 @@ import { useError } from "../../context/errorContext";
 function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const showSnackbar = useError();
@@ -22,38 +23,41 @@ function Register() {
 
   return (
     <div className={styles.authPage}>
-      <div className={styles.authImage}>
-        <img src="banner.jpeg" alt="Banner" />
-      </div>
+      <div className={styles.authImage}></div>
       <div className={styles.authForm}>
         <div className={styles.container}>
           <h1 className={styles.title}>Register</h1>
           <div className={styles.formContainer}>
             <form className={styles.form} onSubmit={handleSubmit}>
-              <label>
-                Name:
+              <label>Name:</label>
+              <input
+                type="text"
+                value={name}
+                onChange={(event) => setName(event.target.value)}
+              />
+              <label>Email:</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+              />
+              <label>Password:</label>
+              <div className={styles.passwordContainer}>
                 <input
-                  type="text"
-                  value={name}
-                  onChange={(event) => setName(event.target.value)}
-                />
-              </label>
-              <label>
-                Email:
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(event) => setEmail(event.target.value)}
-                />
-              </label>
-              <label>
-                Password:
-                <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
+                  placeholder="Enter your password"
                 />
-              </label>
+                <button
+                  type="button"
+                  className={styles.togglePassword}
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? "Hide" : "Show"}
+                </button>
+              </div>
+
               <button className={styles.submitButton} type="submit">
                 Submit
               </button>

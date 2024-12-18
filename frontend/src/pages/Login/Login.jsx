@@ -8,9 +8,11 @@ import { useError } from "../../context/errorContext";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const { setcurrentUser } = useContext(AuthContext);
   const showSnackbar = useError();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -24,32 +26,38 @@ function Login() {
 
   return (
     <div className={styles.authPage}>
-      <div className={styles.authImage}>
-        <img src="banner.jpeg" alt="Banner" />
-      </div>
+      <div className={styles.authImage}></div>
       <div className={styles.authForm}>
         <div className={styles.container}>
           <h1 className={styles.title}>Login</h1>
           <div className={styles.formContainer}>
             <form className={styles.form} onSubmit={handleSubmit}>
-              <label>
-                Email:
+              <label>Email:</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                placeholder="Enter your email"
+              />
+              <label>Password:</label>
+              <div className={styles.passwordContainer}>
                 <input
-                  type="email"
-                  value={email}
-                  onChange={(event) => setEmail(event.target.value)}
-                />
-              </label>
-              <label>
-                Password:
-                <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
+                  placeholder="Enter your password"
                 />
-              </label>
+                <button
+                  type="button"
+                  className={styles.togglePassword}
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? "Hide" : "Show"}
+                </button>
+              </div>
+
               <button className={styles.submitButton} type="submit">
-                Submit
+                Login
               </button>
             </form>
             <p className={styles.toLogin}>

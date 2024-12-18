@@ -1,125 +1,134 @@
 .authPage {
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
+  display: flex;
   height: 100vh;
+  background: linear-gradient(to bottom, #e0e0e0, #c0c0c0, #7a7a7a);
+  color: #ffffff;
   overflow: hidden;
 }
 
 .authImage {
-  height: 100%;
-  overflow: hidden;
-  position: relative;
-}
-
-.authImage img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
+  flex: 1;
+  background: url("/public/banner.jpg") center/cover no-repeat;
+  display: none;
 }
 
 .authForm {
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #3e0656;
-  padding: 40px;
+  padding: 20px;
 }
 
 .container {
-  max-width: 600px;
   width: 100%;
-  background-color: #3d3d3d;
-  padding: 50px;
-  border-radius: 20px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  max-width: 450px;
+  padding: 30px;
+  border-radius: 16px;
+  background: linear-gradient(to right, #2c0735, #3e0656, #4e076d);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+  text-align: center;
 }
 
 .title {
-  font-size: 2.5rem;
-  margin-bottom: 30px;
-  text-align: center;
-  color: #ffffff;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #ffcc00;
+  text-transform: uppercase;
   font-weight: bold;
+  letter-spacing: 1px;
 }
 
-.formContainer {
+.form {
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 20px;
 }
 
 .form label {
-  display: flex;
-  flex-direction: column;
-  font-size: 1.5rem;
+  font-size: 16px;
   color: #ffffff;
-  margin-bottom: 30px;
+  text-align: left;
 }
 
 input {
-  padding: 15px;
-  font-size: 1.2rem;
-  border: 2px solid #ccc;
-  border-radius: 12px;
-  background-color: #fff;
-  color: #333;
-  outline: none;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #c9b6df;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #333333;
   transition: border-color 0.3s ease;
 }
 
 input:focus {
-  border-color: #3e0656;
+  border-color: #ffcc00;
+  outline: none;
 }
 
 .submitButton {
-  padding: 15px 20px;
-  font-size: 1.5rem;
-  background-color: #3e0656;
-  color: white;
+  padding: 10px 20px;
+  font-size: 14px;
+  color: #3e0656;
+  background: #ffcc00;
   border: none;
-  border-radius: 12px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin: 30px auto;
-  display: block;
-  text-align: center;
-  width: 30%;
+  font-weight: bold;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: fit-content;
+  margin: 8px auto;
 }
 
 .submitButton:hover {
-  background-color: #1e002b;
-}
-
-.errorBox {
-  margin: 15px auto;
-  width: fit-content;
-  padding: 10px;
-  border-radius: 13px;
-  background-color: #880606;
-  text-align: center;
-}
-
-.errorMessage {
-  color: #ffffff;
-  font-weight: bold;
-  font-size: 18px;
+  background-color: #d4aa00;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(255, 204, 0, 0.5);
 }
 
 .toLogin {
-  font-size: 1.2rem;
-  text-align: center;
-  margin-top: 20px;
+  font-size: 14px;
   color: #ffffff;
+  margin-top: 10px;
 }
 
 .link {
-  color: #ffffff;
+  color: #ffcc00;
+  font-weight: 600;
   text-decoration: none;
-  font-weight: bold;
 }
 
 .link:hover {
   text-decoration: underline;
+}
+.passwordContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.passwordContainer input {
+  flex: 1;
+  padding-right: 60px;
+}
+
+.togglePassword {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
   color: #3e0656;
+  font-size: 14px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.togglePassword:hover {
+  color: #ffcc00;
+}
+
+@media screen and (min-width: 768px) {
+  .authImage {
+    display: block;
+  }
 }
