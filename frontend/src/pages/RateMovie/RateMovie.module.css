@@ -149,6 +149,52 @@
   border-radius: 10px;
 }
 
+.rateSection:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  transform: translateY(-5px);
+}
+
+.rateSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 20px;
+  font-size: 14px;
+  margin-left: 22px;
+  background: linear-gradient(135deg, #3e0656, #5320aa);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  display: block;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.rateSection::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  transform: skewX(-45deg);
+  transition: left 0.4s ease;
+}
+
+.rateSection:hover::before {
+  left: 100%;
+}
+
+.rateSection:hover {
+  background: linear-gradient(135deg, #5320aa, #6f3eb7);
+  box-shadow: 0 8px 20px rgba(83, 32, 170, 0.5);
+  transform: translateY(-4px);
+}
+
 .rateButton {
   background: transparent;
   border: 2px solid #ffcc00;
@@ -157,12 +203,13 @@
   font-size: 12px;
   cursor: pointer;
   padding: 5px;
+  margin-left: 8px;
   transition: transform 0.3s ease, color 0.3s ease;
 }
-
-.rateButton:hover {
-  color: #fff700;
-  transform: scale(1.1);
+.movieRating {
+  font-size: 1.5rem;
+  color: #ffcc00;
+  font-weight: 600;
 }
 
 .reviewsSection {
@@ -221,14 +268,14 @@
 
 .reviewName {
   margin: 0;
-  font-size: 24x;
+  font-size: 16px;
   font-weight: bold;
   color: #333333;
 }
 
 .reviewText {
   margin-top: 5px;
-  font-size: 22x;
+  font-size: 20px;
   color: #555555;
   line-height: 1.5;
 }

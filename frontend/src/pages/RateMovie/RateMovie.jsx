@@ -108,12 +108,15 @@ function RateMovie() {
           <span className={styles.movieRating}>
             {movie.average_rating || "N/A"}/5
           </span>
-          <button
-            className={styles.rateButton}
+          <div
             onClick={() => setOpenModal(true)}
+            className={styles.rateSection}
           >
-            <FontAwesomeIcon icon={faStar} />
-          </button>
+            <span>Rate it yourself</span>
+            <span className={styles.rateButton}>
+              <FontAwesomeIcon icon={faStar} />
+            </span>
+          </div>
         </div>
       </div>
       <div className={styles.movieMedia}>
@@ -210,6 +213,7 @@ function RateMovie() {
           className={styles.modalInput}
           min="1"
           max="5"
+          style={{ display: "block", margin: "20px auto" }}
         />
         <textarea
           value={reviewInput}
