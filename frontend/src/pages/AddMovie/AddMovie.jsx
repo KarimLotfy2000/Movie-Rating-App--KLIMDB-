@@ -1,23 +1,16 @@
-import React, { useState, useContext } from "react";
-import { BASE_URL } from "../../consts";
-import axios from "axios";
-import { AuthContext } from "../../context/authContext";
+import React, { useState } from "react";
 import styles from "./AddMovie.module.css";
 import { addMovie } from "../../api/apiServices";
 
 function AddMovie() {
-  const { currentUser } = useContext(AuthContext);
-
   const [name, setName] = useState("");
   const [year, setYear] = useState(0);
   const [description, setDescription] = useState("");
-  const [genre, setGenre] = useState("");
   const [image, setImage] = useState("");
-  const [actors, setActors] = useState("");
   const [trailer, setTrailer] = useState("");
   const [error, setError] = useState("");
 
-  const movie = { name, year, description, genre, image, actors, trailer };
+  const movie = { name, year, description, image, trailer };
 
   const handleAddMovie = async (e) => {
     e.preventDefault();
