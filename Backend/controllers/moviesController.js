@@ -150,10 +150,12 @@ const getReviews = async (movieId) => {
         },
       ],
       where: { movie_id: movieId },
-      group: ["user.name"],
+      group: ["user.id", "review"],
+      raw: true,
     });
+
     return reviews.map((review) => ({
-      name: review.user.name,
+      name: review["user.name"],
       review: review.review,
     }));
   } catch (error) {
@@ -233,17 +235,19 @@ const addRating = async (req, res) => {
   const user_id = req.user.id;
 
   try {
-    const ratingExist = await ratings.findOne({
+    const existingRating = await ratings.findOne({
       where: {
         user_id: user_id,
         movie_id: movie_id,
       },
       raw: true,
     });
-    if (ratingExist) {
-      return res
-        .status(400)
-        .json({ error: "You have already rated this movie" });
+    if (existingRating) {
+      await existingRating.update({ rating, review });
+      return res.json({
+        message: "Rating updated successfully",
+        data: existingRating,
+      });
     }
     const newRating = await ratings.create({
       user_id,
