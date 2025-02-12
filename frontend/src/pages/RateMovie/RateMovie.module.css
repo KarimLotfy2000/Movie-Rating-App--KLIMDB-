@@ -7,6 +7,18 @@
   font-family: Arial, sans-serif;
 }
 
+@media (max-width: 1024px) {
+  .rateMovieContainer {
+    padding: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .rateMovieContainer {
+    padding: 20px;
+  }
+}
+
 .loadingSpinner {
   display: flex;
   justify-content: center;
@@ -42,20 +54,35 @@
   color: #ffcc00;
 }
 
+@media (max-width: 768px) {
+  .movieTitle {
+    font-size: 2rem;
+  }
+}
+
 .subInfo {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   gap: 15px;
   margin-top: 10px;
   font-size: 1.2rem;
   color: #b3b3b3;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .subInfo {
+    font-size: 1rem;
+  }
 }
 
 .movieMedia {
   display: flex;
-  justify-content: start;
-  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
   margin: 20px 0;
 }
 
@@ -67,56 +94,66 @@
 }
 
 .movieTrailer {
-  display: flex;
   width: 850px;
   height: 550px;
   border-radius: 15px;
 }
+
 .movieTrailer iframe {
   width: 100%;
   height: 100%;
   border-radius: 15px;
 }
 
-.leftPosterWithText {
-  display: none;
+@media (max-width: 1024px) {
+  .moviePoster {
+    width: 350px;
+    height: 500px;
+  }
+  .movieTrailer {
+    width: 700px;
+    height: 450px;
+  }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 768px) {
   .movieMedia {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .moviePoster {
+    width: 100%;
+    height: auto;
+  }
+  .movieTrailer {
+    width: 100%;
+    height: 300px;
+  }
+}
+
+.posterWithTextContainer {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.leftPosterWithText {
+  display: flex;
+  flex-direction: column;
+}
+
+.rightPosterWithText {
+  flex: 2;
+}
+
+@media (max-width: 1024px) {
+  .posterWithTextContainer {
     flex-direction: column;
     align-items: center;
   }
-  .moviePoster {
-    display: none;
-  }
-  .movieTrailer {
-    width: 100%;
-    height: 400px;
-  }
-  .posterWithTextContainer {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 40px;
-  }
-  .moviePosterBottom {
-    display: flex;
-  }
-  .leftPosterWithText {
-    display: flex;
-    width: 100%;
-    height: 350px;
-    border-radius: 15px;
-  }
-}
-@media (min-width: 700px) and (max-width: 1200px) {
-  .moviePoster {
-    width: 300px;
-    height: 400px;
-  }
-  .movieTrailer {
-    width: 600px;
-    height: 400px;
+  .rightPosterWithText {
+    text-align: center;
   }
 }
 
@@ -139,6 +176,7 @@
 .actorsList {
   display: flex;
   flex-wrap: wrap;
+  justify-content: start;
   gap: 10px;
 }
 
@@ -149,50 +187,21 @@
   border-radius: 10px;
 }
 
-.rateSection:hover {
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-  transform: translateY(-5px);
-}
-
 .rateSection {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 15px 20px;
   font-size: 14px;
-  margin-left: 22px;
   background: linear-gradient(135deg, #3e0656, #5320aa);
   color: white;
-  border: none;
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.4s ease;
-  display: block;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  position: relative;
-  overflow: hidden;
-}
-
-.rateSection::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.1);
-  transform: skewX(-45deg);
-  transition: left 0.4s ease;
-}
-
-.rateSection:hover::before {
-  left: 100%;
 }
 
 .rateSection:hover {
   background: linear-gradient(135deg, #5320aa, #6f3eb7);
-  box-shadow: 0 8px 20px rgba(83, 32, 170, 0.5);
-  transform: translateY(-4px);
 }
 
 .rateButton {
@@ -204,124 +213,85 @@
   cursor: pointer;
   padding: 5px;
   margin-left: 8px;
-  transition: transform 0.3s ease, color 0.3s ease;
 }
-.movieRating {
-  font-size: 1.5rem;
+
+.reviewsHeader {
+  font-size: 2rem;
+  font-weight: bold;
   color: #ffcc00;
-  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+  .reviewsHeader {
+    font-size: 1.5rem;
+  }
 }
 
 .reviewsSection {
-  margin-top: 40px;
   padding: 20px;
-  background-color: #c1c1c1;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.reviewsSection h2 {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 20px;
-  color: #333333;
-  font-weight: 600;
-  letter-spacing: 1px;
+  background: #4a4a4a;
+  border-radius: 8px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  margin: 30px auto;
 }
 
 .reviewItem {
-  display: flex;
-  gap: 20px;
-  margin-bottom: 15px;
-  padding: 20px;
-  background-color: #eeeeee;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 10px;
+  border-bottom: 1px solid #666;
 }
 
-.reviewItem:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-.reviewAvatar {
-  flex-shrink: 0;
-  width: 60px;
-  height: 60px;
-  background-color: #e0e0e0;
-  color: #555555;
-  font-size: 1.8rem;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  text-transform: uppercase;
-}
-
-.reviewContent {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.reviewItem:last-child {
+  border-bottom: none;
 }
 
 .reviewName {
-  margin: 0;
-  font-size: 16px;
+  font-size: 1.3rem;
   font-weight: bold;
-  color: #333333;
+  color: #ffd740;
 }
 
 .reviewText {
-  margin-top: 5px;
-  font-size: 20px;
-  color: #555555;
-  line-height: 1.5;
+  font-size: 1.2rem;
+  color: #e0e0e0;
+}
+
+.showMoreButton {
+  display: inline-block;
+  background: #ffd740;
+  color: #212121;
+  padding: 8px 18px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
 }
 
 .noReviews {
   text-align: center;
-  font-size: 1.2rem;
-  color: #777777;
-  margin-top: 20px;
+  font-size: 25px;
+  color: #d1d1d1;
+  margin-top: 35px;
 }
-.showMoreButton {
-  color: #000000;
-  border: none;
-  padding: 10px 20px;
-  font-size: 14px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-/* Modal Styling */
 
 .modalInput,
 .modalTextarea {
   width: 100%;
   padding: 12px;
   font-size: 18px;
-  font-weight: 700;
   background: #bebbbe;
   color: #000000;
   border: 1px solid #532c8a;
   border-radius: 6px;
-  font-family: "Arial", sans-serif;
-  overflow-x: none;
-}
-.modalInput {
-  width: 30%;
-  margin: 10px auto;
 }
 
 .modalSubmit,
 .modalCancel {
   background: #5320aa;
   color: white;
-  border: none;
-  padding: 10px 20px;
+  padding: 12px 20px;
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -338,4 +308,16 @@
 .errorText {
   color: #ff4444;
   margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+  .modalInput,
+  .modalTextarea {
+    font-size: 16px;
+  }
+  .modalSubmit,
+  .modalCancel {
+    font-size: 14px;
+    padding: 10px 16px;
+  }
 }

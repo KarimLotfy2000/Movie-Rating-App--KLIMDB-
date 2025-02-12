@@ -232,7 +232,7 @@ function Home() {
               onClick={() => setOpenModal(false)}
               className={styles.modalCancel}
             >
-              Cancel
+              Close
             </button>
           </>
         }

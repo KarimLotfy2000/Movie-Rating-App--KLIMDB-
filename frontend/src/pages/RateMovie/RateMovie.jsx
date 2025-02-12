@@ -112,10 +112,12 @@ function RateMovie() {
             onClick={() => setOpenModal(true)}
             className={styles.rateSection}
           >
-            <span>Rate it yourself</span>
-            <span className={styles.rateButton}>
-              <FontAwesomeIcon icon={faStar} />
-            </span>
+            <div>
+              <span>Rate it yourself</span>
+              <span className={styles.rateButton}>
+                <FontAwesomeIcon icon={faStar} />
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -131,13 +133,6 @@ function RateMovie() {
         />
       </div>
       <div className={styles.posterWithTextContainer}>
-        <div className={styles.leftPosterWithText}>
-          <img
-            src={movie.image}
-            alt={movie.name}
-            className={styles.moviePosterBottom}
-          />
-        </div>
         <div classNames={styles.rightPosterWithText}>
           <div className={styles.movieDescription}>
             <h2>Plot Summary</h2>
@@ -161,34 +156,33 @@ function RateMovie() {
           </div>
         </div>
       </div>
-      <div className={styles.reviewsSection}>
-        <h2>Reviews</h2>
+      <>
         {displayedReviews.length > 0 ? (
-          displayedReviews.map((review, index) => (
-            <div className={styles.reviewItem} key={index}>
-              <div className={styles.reviewAvatar}>{review.name.charAt(0)}</div>
-              <div className={styles.reviewContent}>
-                <h4 className={styles.reviewName}>
-                  {review.name.toUpperCase()}
-                </h4>
-                <p className={styles.reviewText}>{review.review}</p>
-              </div>
+          <>
+            <div className={styles.reviewsSection}>
+              <h2 className={styles.reviewsHeader}>Reviews</h2>
+              {displayedReviews.map((review, index) => (
+                <div className={styles.reviewItem} key={index}>
+                  <h4 className={styles.reviewName}>{review.name}</h4>
+                  <p className={styles.reviewText}>{review.review}</p>
+                </div>
+              ))}
+              {reviews.length > 3 && (
+                <button
+                  className={styles.showMoreButton}
+                  onClick={() => setShowAllReviews(!showAllReviews)}
+                >
+                  {showAllReviews ? "Show Less" : "Show More"}
+                </button>
+              )}
             </div>
-          ))
+          </>
         ) : (
           <p className={styles.noReviews}>
-            No reviews yet. Be the first to rate and review this movie!
+            No reviews yet. Be the first to review this movie!
           </p>
         )}
-        {reviews.length > 3 && (
-          <button
-            className={styles.showMoreButton}
-            onClick={() => setShowAllReviews(!showAllReviews)}
-          >
-            {showAllReviews ? "Show Less" : "Show More"}
-          </button>
-        )}
-      </div>
+      </>
       <Modal
         isOpen={openModal}
         onClose={closeModal}
